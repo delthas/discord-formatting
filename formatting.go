@@ -200,12 +200,12 @@ type SpecialMentionNode struct {
 
 /*
 TimestampNode is a leaf Node that represents a timestamp, displayed in the local client time.
-It is usually represented in Discord with <t:stamp:suffix>.
+It is usually represented in Discord with <t:stamp:format>.
 */
 type TimestampNode struct {
 	node
 	Stamp  string
-	Suffix string
+	Format string
 }
 
 /*
@@ -531,7 +531,7 @@ func NewParser(options *ParserOptions) *Parser {
 			return parseSpec{
 				node: &TimestampNode{
 					Stamp:  match.group(1),
-					Suffix: match.group(2),
+					Format: match.group(2),
 				},
 			}
 		},
@@ -799,7 +799,7 @@ func Debug(n Node) string {
 			case *SpecialMentionNode:
 				sb.WriteString(fmt.Sprintf("specialmention %q", n.Mention))
 			case *TimestampNode:
-				sb.WriteString(fmt.Sprintf("timestamp %q %q", n.Stamp, n.Suffix))
+				sb.WriteString(fmt.Sprintf("timestamp %q %q", n.Stamp, n.Format))
 			case *HeaderNode:
 				sb.WriteString(fmt.Sprintf("header %d", n.Level))
 			case *BulletListNode:
